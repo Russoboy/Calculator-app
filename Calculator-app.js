@@ -15,11 +15,13 @@ function backspace() {
     displayValue = displayValue.slice(0, -1);
     document.getElementById('display').value = displayValue;
 }
-
-function calculate() {
+function equalsTo() {
     try {
-        displayValue = eval(displayValue);
+        const result = Function(`"use strict"; return (${displayValue})`)();
+        displayValue = result.toString();
         document.getElementById('display').value = displayValue;
+        // displayValue = eval(displayValue);
+        // document.getElementById('display').value = displayValue;
     } catch (error) {
         document.getElementById('display').value = 'Error';
     }
