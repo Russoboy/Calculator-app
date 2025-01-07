@@ -74,3 +74,68 @@ function equalsTo() {
         displayValue = '';
     }
 }
+
+//🎹 Keyboard input & navigation support
+document.addEventListener("keydown", (event) => {
+    const focusableButtons = Array.from(document.querySelectorAll(".btn"));
+    const currentIndex = focusableButtons.indexOf(document.activeElement);
+
+    // 1. When Enter is pressed, simulate a click for the focused button
+    if (event.key === "Enter") {
+        event.preventDefault();
+        if (document.activeElement.tagName === "BUTTON") {
+            document.activeElement.click(); // Trigger click on focused button
+        }
+    }
+
+    // 2. Handle navigation with arrow keys, Tab, or Shift+Tab
+    switch (event.key) {
+        case "ArrowDown": // Move to the next row
+        case "Tab": // Supports Tab navigation
+            event.preventDefault();
+            if (currentIndex >= 0 && currentIndex < focusableButtons.length - 1) {
+                focusableButtons[currentIndex + 1].focus();
+            } else {
+                focusableButtons[0].focus(); // Loop back to the first button
+            }
+            break;
+
+        case "ArrowUp": // Move up
+            event.preventDefault();
+            if (currentIndex > 0) {
+                focusableButtons[currentIndex - 1].focus();
+            }
+            break;
+
+        case "ArrowLeft": // Move left
+            event.preventDefault();
+            if (currentIndex % 4 !== 0) {
+                focusableButtons[currentIndex - 1].focus();
+            }
+            break;
+
+        case "ArrowRight": // Move right
+            event.preventDefault();
+            if (currentIndex % 4 !== 3) {
+                focusableButtons[currentIndex + 1].focus();
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    // Additional features, e.g., clearing display with Escape or 'C' key, etc.
+    if (event.key === "Escape") {
+        event.preventDefault();
+        clearDisplay();
+    } else if (event.key === "Backspace") {
+        event.preventDefault();
+        backspace();
+    }
+});
+
+
+
+
+
