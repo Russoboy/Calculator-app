@@ -66,7 +66,14 @@ function equalsTo() {
             return;
         }
 
-        const result = Function(`"use strict"; return (${displayValue})`)();
+        // Evaluate the result
+        const rawResult = Function(`"use strict"; return (${displayValue})`)();
+
+        // Set precision (e.g., 2 decimal places)
+        const precision = 1; // Change this to your preferred number of decimal places
+        const result = parseFloat(rawResult.toFixed(precision)); // Format result with fixed decimal places
+
+        // Update display value
         displayValue = result.toString();
         inputField.value = displayValue;
     } catch (error) {
@@ -74,6 +81,7 @@ function equalsTo() {
         displayValue = '';
     }
 }
+
 
 //🎹 Keyboard input & navigation support
 document.addEventListener("keydown", (event) => {
