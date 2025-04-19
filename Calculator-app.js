@@ -8,18 +8,15 @@ function appendToDisplay(value) {
     // 1. Prevent multiple operators together (e.g., "+-", "++")
     if (/[+\-*/.%]/.test(lastChar) && /[+\-*/.%]/.test(value)) {
         return; // Reject new operator if last character is also an operator
-    }
-
+    } 
     // 2. Allow only one decimal per number
     if (value === '.' && /\.\d*$/.test(displayValue)) {
         return; // Reject extra decimal if a number already has one
     }
-
     // 3. Prevent incomplete expressions (e.g., "+" or ".")
     if (/[+\-*/.%]/.test(value) && (displayValue === '' || lastChar === '.')) {
         return; // Reject if first input is an operator or last character is a "."
     }
-
     // 4. Handle opening and closing brackets (if added)
     if (value === ')') {
         // Ensure the expression is valid for a closing bracket
@@ -39,12 +36,10 @@ function appendToDisplay(value) {
     displayValue += value;
     inputField.value = displayValue;
 }
-
 function clearDisplay() {
     displayValue = '';
     inputField.value = '';
 }
-
 function backspace() {
     displayValue = displayValue.slice(0, -1);
     inputField.value = displayValue;
@@ -91,9 +86,7 @@ document.addEventListener("keydown", (event) => {
     // 1. When Enter is pressed, simulate a click for the focused button
     if (event.key === "Enter") {
         event.preventDefault();
-        if (document.activeElement.tagName === "BUTTON") {
-            document.activeElement.click(); // Trigger click on focused button
-        }
+       document.getElementById("equalsTo").click();
     }
 
     // 2. Handle navigation with arrow keys, Tab, or Shift+Tab
@@ -142,8 +135,3 @@ document.addEventListener("keydown", (event) => {
         backspace();
     }
 });
-
-
-
-
-
